@@ -7,25 +7,25 @@
 
 import Foundation
 
-protocol URLSessionProtocol {
+public protocol URLSessionProtocol {
     func dataTask<T: InvystaObject>(with url: InvystaURL<T>, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
 extension URLSession: URLSessionProtocol {
-    func dataTask<T>(with url: InvystaURL<T>, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol where T : InvystaObject {
+    public func dataTask<T>(with url: InvystaURL<T>, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol where T : InvystaObject {
         return dataTask(with: url.url, completionHandler: completion)
     }
 }
 
-protocol URLSessionDataTaskProtocol {
+public protocol URLSessionDataTaskProtocol {
     func findUrl<T: InvystaObject>(_ url: InvystaURL<T>)
     func resume()
     func data(_ completion: (Data?, URLResponse?, Error?) -> Void)
 }
 
 extension URLSessionDataTask: URLSessionDataTaskProtocol {
-    func findUrl<T>(_ url: InvystaURL<T>) where T : InvystaObject {}
-    func data(_ completion: (Data?, URLResponse?, Error?) -> Void) {}
+    public func findUrl<T>(_ url: InvystaURL<T>) where T : InvystaObject {}
+    public func data(_ completion: (Data?, URLResponse?, Error?) -> Void) {}
 }
 
 open class NetworkManager {
