@@ -8,13 +8,13 @@
 import Foundation
 
 public struct InvystaErrorModel: Decodable {
-    var error: String
-    var errors: [InvystaErrorDetails]?
+    public var error: String
+    public var errors: [InvystaErrorDetails]?
 }
 
 public struct InvystaErrorDetails: Decodable {
-    var location: String
-    var msg: String
-    var param: String
-    var value: String
+    public var location: String
+    public var msg: String
+    public var param: String
+    public var value: String
 }
