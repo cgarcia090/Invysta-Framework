@@ -33,7 +33,7 @@ public final class Registration: InvystaProcess<RegistrationObject> {
             if response.statusCode == 201 {
                 completion(.success(response.statusCode))
             } else if response.statusCode == 401 || response.statusCode == 400 {
-                completion(.failure(.error(self.JSONError(data))))
+                completion(.failure(.error(self.JSONError(data), response.statusCode)))
             } else {
                 completion(.failure(.error("An unknown error has occured")))
             }

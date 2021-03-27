@@ -9,7 +9,7 @@ import Foundation
 
 public enum ServerError: Error {
     case invalidProvider
-    case error(String)
+    case error(String, Int? = nil)
 }
 
 open class InvystaProcess<T: InvystaObject> {
