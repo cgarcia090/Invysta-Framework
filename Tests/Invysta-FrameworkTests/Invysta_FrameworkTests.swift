@@ -10,9 +10,7 @@ final class Invysta_FrameworkTests: XCTestCase {
         
         let auth = AuthenticationObject(uid: "", nonce: "", caid: "", provider: "", identifier: [""])
         
-        NetworkManager().call(auth) { (_, _, _) in
-            
-        }
+        
     }
 
     static var allTests = [
