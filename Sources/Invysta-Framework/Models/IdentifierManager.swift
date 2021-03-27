@@ -8,9 +8,8 @@
 import Foundation
 import CommonCrypto
 
-
 open class Identifier {
-    func SHA256(data: Data?) -> String {
+    public func SHA256(data: Data?) -> String {
         guard let data = data else { return "SHA-err" }
         var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
         data.withUnsafeBytes {
@@ -25,9 +24,9 @@ open class IdentifierManager: Identifier {
     
     private let sources: [IdentifierSource]
         
-    private(set) var compiledSources = [String]()
+    private(set) var compiledSources: [String] = []
     
-    init(_ sources: [IdentifierSource]) {
+    public init(_ sources: [IdentifierSource]) {
         
         self.sources = sources
         
@@ -35,7 +34,7 @@ open class IdentifierManager: Identifier {
         compiledSources = self.sources.compactMap({ $0.identifier() })
     }
     
-    func createClientAgentId() -> String {
+    public func createClientAgentId() -> String {
         var caid = ""
         
         if let firstIdentifier = sources.first?.identifier() {

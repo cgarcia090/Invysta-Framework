@@ -16,7 +16,7 @@ public struct InvystaURL<T: InvystaObject> {
         InvystaService.log(.warning, object.provider)
         InvystaService.log(.warning, object.caid)
         
-        var request = URLRequest(url: URL(string: object.provider as! String)!)
+        var request = URLRequest(url: URL(string: object.provider)!)
         
         do {
             let encoder = JSONEncoder()
