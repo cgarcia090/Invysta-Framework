@@ -9,9 +9,9 @@ import Foundation
 
 public struct InvystaURL<T: InvystaObject> {
     
-    var object: T
+    public var object: T
     
-    var url: URLRequest {
+    public var url: URLRequest {
         
         InvystaService.log(.warning, object.provider)
         InvystaService.log(.warning, object.caid)
@@ -29,5 +29,9 @@ public struct InvystaURL<T: InvystaObject> {
         }
         
         return request
+    }
+    
+    public init(object: T) {
+        self.object = object
     }
 }

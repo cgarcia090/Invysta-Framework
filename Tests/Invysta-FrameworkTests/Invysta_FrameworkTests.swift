@@ -7,6 +7,12 @@ final class Invysta_FrameworkTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         XCTAssertEqual(Invysta_Framework().text, "Hello, World!")
+        
+        let auth = AuthenticationObject(uid: "", nonce: "", caid: "", provider: "", identifier: [""])
+        
+        NetworkManager().call(auth) { (_, _, _) in
+            
+        }
     }
 
     static var allTests = [
