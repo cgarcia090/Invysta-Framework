@@ -32,7 +32,7 @@ open class NetworkManager {
     
     private var session: URLSessionProtocol?
     
-    init(_ session: URLSessionProtocol? = nil) {
+    public init(_ session: URLSessionProtocol? = nil) {
         if let session = session {
             self.session = session
         } else {
