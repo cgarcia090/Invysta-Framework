@@ -13,18 +13,24 @@ public final class Registration: InvystaProcess<RegistrationObject> {
         super.init(invystaObject, networkManager)
     }
     
-    override public func start(_ completion: @escaping (Result<Int, ServerError>) -> Void) {
+    override public func start(_ completion: @escaping (InvystaResult) -> Void) {
+        
+        guard let _ = URL(string: invystaURL.object.provider) else {
+            completion(.failure("Invalid Provider", -1))
+            return
+        }
+        
         networkManager.call(invystaURL) { [weak self] (data, response, error) in
             
             guard let self = self else { return }
             
             if let error = error {
-                completion(.failure(.error(error.localizedDescription)))
+                completion(.failure(error.localizedDescription, -1))
                 return
             }
             
             guard let response = response as? HTTPURLResponse else {
-                completion(.failure(.error("An unknown error has occured")))
+                completion(.failure(self.JSONError(data), -1))
                 return
             }
             
@@ -32,10 +38,8 @@ public final class Registration: InvystaProcess<RegistrationObject> {
             
             if response.statusCode == 201 {
                 completion(.success(response.statusCode))
-            } else if response.statusCode == 401 || response.statusCode == 400 {
-                completion(.failure(.error(self.JSONError(data), response.statusCode)))
             } else {
-                completion(.failure(.error("An unknown error has occured")))
+                completion(.failure(self.JSONError(data), response.statusCode))
             }
         }
     }

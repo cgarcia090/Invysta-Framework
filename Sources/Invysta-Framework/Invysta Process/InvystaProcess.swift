@@ -7,9 +7,9 @@
 
 import Foundation
 
-public enum ServerError: Error {
-    case invalidProvider
-    case error(String, Int? = nil)
+public enum InvystaResult {
+    case success(Int)
+    case failure(String, Int)
 }
 
 open class InvystaProcess<T: InvystaObject> {
@@ -22,7 +22,7 @@ open class InvystaProcess<T: InvystaObject> {
         self.networkManager = networkManager
     }
     
-    public func start(_ completion: @escaping (Result<Int, ServerError>) -> Void) {}
+    public func start(_ completion: @escaping (InvystaResult) -> Void) {}
  
     public func JSONError(_ data: Data?) -> String {
         guard let data = data else {

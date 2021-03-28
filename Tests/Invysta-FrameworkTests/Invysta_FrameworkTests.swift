@@ -10,6 +10,14 @@ final class Invysta_FrameworkTests: XCTestCase {
         
         let auth = AuthenticationObject(uid: "", nonce: "", caid: "", provider: "", identifier: [""])
         
+        Authenticate(auth).start { (results) in
+            switch results {
+            case .success(let statusCode):
+                print(statusCode)
+            case .failure(let error, let statusCode):
+                print(error, statusCode)
+            }
+        }
         
     }
 
