@@ -17,8 +17,8 @@ open class IdentifierManager {
     
     private var sources: [IdentifierSource]! {
         didSet {
-            InvystaService.log(.alert, "Sources Finished Set")
             compiledSources = self.sources.compactMap({ $0.identifier() })
+            InvystaService.log(.alert, "Sources Finished Set \(compiledSources.count), \(compiledSources)")
         }
     }
        
