@@ -2,23 +2,31 @@ import XCTest
 @testable import Invysta_Framework
 
 final class Invysta_FrameworkTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Invysta_Framework().text, "Hello, World!")
+    
+    struct MockSource: IdentifierSource {
+        var type: String
         
-        let auth = AuthenticationObject(uid: "", nonce: "", caid: "", provider: "", identifier: [""])
-        
-        Authenticate(auth).start { (results) in
-            switch results {
-            case .success(let statusCode):
-                print(statusCode)
-            case .failure(let error, let statusCode):
-                print(error, statusCode)
-            }
+        init(type: String) {
+            self.type = type
         }
         
+        func identifier() -> String? {
+            return type
+        }
+    }
+    
+    func testExample() {
+        let mocksTypes = ["Mock1", "Mock2", "Mock3", "Mock4"]
+        
+        let mocks = mocksTypes.map { (id) -> MockSource in
+            MockSource(type: id)
+        }
+        
+        IdentifierManager.configure(mocks)
+        
+        for (i, id) in mocks.enumerated() {
+            XCTAssertEqual(IdentifierManager.shared.compiledSources[i], id.type)
+        }
     }
 
     static var allTests = [

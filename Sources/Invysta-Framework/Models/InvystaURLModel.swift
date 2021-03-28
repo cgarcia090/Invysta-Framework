@@ -15,6 +15,7 @@ public struct InvystaURL<T: InvystaObject> {
         
         InvystaService.log(.warning, object.provider)
         InvystaService.log(.warning, object.caid)
+        InvystaService.log(.warning, object.provider)
         
         var request = URLRequest(url: URL(string: object.provider)!)
         

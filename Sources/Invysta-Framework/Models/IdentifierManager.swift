@@ -10,16 +10,28 @@ import CommonCrypto
 
 open class IdentifierManager {
     
-    private let sources: [IdentifierSource]
-        
-    public private(set) var compiledSources: [String] = []
+    public static let shared = IdentifierManager()
     
-    public init(_ sources: [IdentifierSource]) {
-        self.sources = sources
-        compiledSources = self.sources.compactMap({ $0.identifier() })
+    public private(set) var compiledSources: [String] = []
+    public private(set) var clientAgentId: String = ""
+    
+    private var sources: [IdentifierSource]! {
+        didSet {
+            InvystaService.log(.alert, "Sources Set")
+            compiledSources = self.sources.compactMap({ $0.identifier() })
+        }
+    }
+       
+    public static func configure(_ sources: [IdentifierSource]) {
+        self.shared.sources = sources
+        self.shared.createClientAgentId()
     }
     
-    public func createClientAgentId() -> String {
+    public init() {
+        InvystaService.log(.alert, "Shared Called")
+    }
+
+    private func createClientAgentId() {
         var caid = ""
         
         if let firstIdentifier = sources.first?.identifier() {
@@ -30,7 +42,7 @@ open class IdentifierManager {
             caid += lastIdentifier
         }
         
-        return SHA256(data: caid.data(using: .ascii))
+        clientAgentId = SHA256(data: caid.data(using: .ascii))
     }
     
     private func SHA256(data: Data?) -> String {
