@@ -17,7 +17,7 @@ open class IdentifierManager {
     
     private var sources: [IdentifierSource]! {
         didSet {
-            InvystaService.log(.alert, "Sources Set")
+            InvystaService.log(.alert, "Sources Finished Set")
             compiledSources = self.sources.compactMap({ $0.identifier() })
         }
     }
@@ -32,7 +32,9 @@ open class IdentifierManager {
     }
 
     private func createClientAgentId() {
+        InvystaService.log(.alert, "Creating Client Agent")
         var caid = ""
+        clientAgentId = ""
         
         if let firstIdentifier = sources.first?.identifier() {
             caid += firstIdentifier
