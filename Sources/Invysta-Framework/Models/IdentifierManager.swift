@@ -10,7 +10,7 @@ import CommonCrypto
 
 open class IdentifierManager {
     
-    public static let shared = IdentifierManager()
+    public static let shared: IdentifierManager = IdentifierManager()
     
     public private(set) var compiledSources: [String] = []
     public private(set) var clientAgentId: String = ""
@@ -23,9 +23,12 @@ open class IdentifierManager {
     }
        
     public static func configure(_ sources: [IdentifierSource]) {
-        InvystaService.log(.alert, "IdentifierManager Configured")
-        self.shared.sources = sources
-        self.shared.createClientAgentId()
+        
+        if self.shared.sources.isEmpty {
+            InvystaService.log(.alert, "IdentifierManager Configured")
+            self.shared.sources = sources
+            self.shared.createClientAgentId()
+        }
     }
     
     public init() {
