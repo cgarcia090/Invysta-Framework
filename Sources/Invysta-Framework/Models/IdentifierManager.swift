@@ -23,12 +23,9 @@ open class IdentifierManager {
     }
        
     public static func configure(_ sources: [IdentifierSource]) {
-        
-        if self.shared.sources.isEmpty {
-            InvystaService.log(.alert, "IdentifierManager Configured")
-            self.shared.sources = sources
-            self.shared.createClientAgentId()
-        }
+        InvystaService.log(.alert, "IdentifierManager Configured")
+        self.shared.sources = sources
+        self.shared.createClientAgentId()
     }
     
     public init() {

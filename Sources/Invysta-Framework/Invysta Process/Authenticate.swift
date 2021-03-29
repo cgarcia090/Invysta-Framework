@@ -19,7 +19,10 @@ open class Authenticate: InvystaProcess<AuthenticationObject> {
             return
         }
         
-        networkManager.call(invystaURL) { [weak self] (data, response, error) in
+        var url = invystaURL
+        url.object.provider += "/reg-login"
+        
+        networkManager.call(url) { [weak self] (data, response, error) in
             
             guard let self = self else { return }
             
