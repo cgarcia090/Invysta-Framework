@@ -13,7 +13,7 @@ public protocol URLSessionProtocol {
 
 extension URLSession: URLSessionProtocol {
     public func dataTask<T>(with url: InvystaURL<T>, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol where T : InvystaObject {
-        return dataTask(with: url.url, completionHandler: completion)
+        return dataTask(with: url.urlRequest, completionHandler: completion)
     }
 }
 

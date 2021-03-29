@@ -16,9 +16,17 @@ open class InvystaProcess<T: InvystaObject> {
     
     let invystaURL: InvystaURL<T>
     let networkManager: NetworkManager
-    
-    public init(_ invystaObject: InvystaObject,_ networkManager: NetworkManager = NetworkManager()) {
-        self.invystaURL = InvystaURL(object: invystaObject as! T)
+
+    public init(_ invystaObject: InvystaObject,_ url: String,_ networkManager: NetworkManager = NetworkManager()) {
+        
+        if invystaObject is AuthenticationObject {
+            self.invystaURL = InvystaURL(object: invystaObject as! T, url: url + "/reg-login")
+        } else if invystaObject is RegistrationObject {
+            self.invystaURL = InvystaURL(object: invystaObject as! T, url: url + "/reg-device")
+        } else {
+            self.invystaURL = InvystaURL(object: invystaObject as! T, url: url)
+        }
+        
         self.networkManager = networkManager
     }
     

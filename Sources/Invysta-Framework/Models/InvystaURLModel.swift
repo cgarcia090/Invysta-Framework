@@ -10,10 +10,11 @@ import Foundation
 public struct InvystaURL<T: InvystaObject> {
     
     public var object: T
-    
-    public var url: URLRequest {
+    public var url: String
+
+    public var urlRequest: URLRequest {
         
-        var providerUrl = object.provider
+        var providerUrl = url
         
         if let testVal = FeatureFlagBrowserData.shared.testVal {
             providerUrl = testVal as! String
@@ -37,7 +38,8 @@ public struct InvystaURL<T: InvystaObject> {
         return request
     }
     
-    public init(object: T) {
+    public init(object: T, url: String) {
         self.object = object
+        self.url = url
     }
 }

@@ -9,26 +9,23 @@ import Foundation
 
 open class Authenticate: InvystaProcess<AuthenticationObject> {
    
-    public override init(_ invystaObject: InvystaObject, _ networkManager: NetworkManager = NetworkManager()) {
-        super.init(invystaObject, networkManager)
+    public override init(_ invystaObject: InvystaObject,_ url: String,_ networkManager: NetworkManager = NetworkManager()) {
+        super.init(invystaObject, url, networkManager)
     }
     
     override public func start(_ completion: @escaping (InvystaResult) -> Void) {
-        guard let _ = URL(string: invystaURL.object.provider) else {
+        guard let _ = URL(string: invystaURL.url) else {
             completion(.failure("Invalid Provider", -1))
             return
         }
-        
-        var url = invystaURL
-        url.object.provider += "/reg-login"
-        
+     
         print("###################################")
         print("AUTHENTICATION")
-        print("CAID",url.object.caid)
-        print("Identifiers",url.object.identifiers)
+        print("CAID",invystaURL.object.caid)
+        print("Identifiers",invystaURL.object.identifiers)
         print("###################################")
         
-        networkManager.call(url) { [weak self] (data, response, error) in
+        networkManager.call(invystaURL) { [weak self] (data, response, error) in
             
             guard let self = self else { return }
             
