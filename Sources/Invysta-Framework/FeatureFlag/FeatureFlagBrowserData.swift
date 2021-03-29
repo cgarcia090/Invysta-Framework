@@ -19,8 +19,8 @@ open class FeatureFlag {
 
 open class FeatureFlagBrowserData: FeatureFlagType {
     
-    var trigger: Bool = false
-    var testVal: Any?
+    public var trigger: Bool = false
+    public var testVal: Any?
     
-    static let shared = FeatureFlagBrowserData()
+    static public let shared = FeatureFlagBrowserData()
 }
