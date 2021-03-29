@@ -13,10 +13,16 @@ public struct InvystaURL<T: InvystaObject> {
     
     public var url: URLRequest {
         
-        InvystaService.log(.warning,"InvystaURL", object.provider)
+        var providerUrl = object.provider
+        
+        if let testVal = FeatureFlagBrowserData.shared.testVal {
+            providerUrl = testVal as! String
+        }
+        
+        InvystaService.log(.warning,"InvystaURL", providerUrl)
         InvystaService.log(.warning,"InvystaURL",  object.caid)
         
-        var request = URLRequest(url: URL(string: object.provider)!)
+        var request = URLRequest(url: URL(string: providerUrl)!)
         
         do {
             let encoder = JSONEncoder()

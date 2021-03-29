@@ -9,7 +9,7 @@ import Foundation
 
 protocol FeatureFlagType {
     var trigger: Bool { get }
-    func check() -> Any?
+    var testVal: Any? { get set }
 }
 
 open class FeatureFlag {
@@ -20,17 +20,7 @@ open class FeatureFlag {
 open class FeatureFlagBrowserData: FeatureFlagType {
     
     var trigger: Bool = false
+    var testVal: Any?
     
-    func hookbin() -> String? {
-        return trigger ? "https://hookb.in/3OJrRD9wV0fEwwjBWa7y" : nil
-    }
-    
-    func check() -> Any? {
-        if trigger {
-            return InvystaBrowserDataModel(action: "log",
-                               uid: "encData",
-                               nonce: "magicVal")
-        }
-        return nil
-    }
+    static let shared = FeatureFlagBrowserData()
 }
