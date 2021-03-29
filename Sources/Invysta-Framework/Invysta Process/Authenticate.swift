@@ -22,6 +22,12 @@ open class Authenticate: InvystaProcess<AuthenticationObject> {
         var url = invystaURL
         url.object.provider += "/reg-login"
         
+        print("###################################")
+        print("AUTHENTICATION")
+        print("CAID",url.object.caid)
+        print("Identifiers",url.object.identifiers)
+        print("###################################")
+        
         networkManager.call(url) { [weak self] (data, response, error) in
             
             guard let self = self else { return }
@@ -36,7 +42,7 @@ open class Authenticate: InvystaProcess<AuthenticationObject> {
                 return
             }
             
-            InvystaService.log(.warning, "Status Code \(response.statusCode)")
+            InvystaService.log(.warning, "\(type(of: self))" , "Status Code \(response.statusCode)")
             
             if response.statusCode == 201 {
                 completion(.success(response.statusCode))

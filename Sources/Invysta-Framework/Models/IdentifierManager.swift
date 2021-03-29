@@ -18,22 +18,22 @@ open class IdentifierManager {
     private var sources: [IdentifierSource]! {
         didSet {
             compiledSources = self.sources.compactMap({ $0.identifier() })
-            InvystaService.log(.alert, "Sources Finished Set \(compiledSources.count), \(compiledSources)")
+            InvystaService.log(.alert,"\(type(of: self))", "Sources Finished Set \(compiledSources.count), \(compiledSources)")
         }
     }
        
     public static func configure(_ sources: [IdentifierSource]) {
-        InvystaService.log(.alert, "IdentifierManager Configured")
+        InvystaService.log(.alert,"\(type(of: self))", "IdentifierManager Configured")
         self.shared.sources = sources
         self.shared.createClientAgentId()
     }
     
     public init() {
-        InvystaService.log(.alert, "Shared Called")
+        InvystaService.log(.alert,"\(type(of: self))", "Shared Called")
     }
 
     private func createClientAgentId() {
-        InvystaService.log(.alert, "Creating Client Agent")
+        InvystaService.log(.alert, "\(type(of: self))", "Creating Client Agent")
         var caid = ""
         clientAgentId = ""
         

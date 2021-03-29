@@ -24,12 +24,11 @@ open class InvystaService {
         case alert = "🚨"
     }
 
-    public static func log(_ emoji: EmojiType, _ message: Any) {
-        Swift.print("")
+    public static func log(_ emoji: EmojiType,_ title: Any, _ message: Any) {
         Swift.print("########################################")
+        Swift.print(title)
         Swift.print(emoji.rawValue, message)
         Swift.print("########################################")
-        Swift.print("")
     }
     
 }

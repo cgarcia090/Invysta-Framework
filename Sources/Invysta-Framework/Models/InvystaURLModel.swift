@@ -13,9 +13,8 @@ public struct InvystaURL<T: InvystaObject> {
     
     public var url: URLRequest {
         
-        InvystaService.log(.warning, object.provider)
-        InvystaService.log(.warning, object.caid)
-        InvystaService.log(.warning, object.provider)
+        InvystaService.log(.warning,"InvystaURL", object.provider)
+        InvystaService.log(.warning,"InvystaURL",  object.caid)
         
         var request = URLRequest(url: URL(string: object.provider)!)
         
@@ -26,7 +25,7 @@ public struct InvystaURL<T: InvystaObject> {
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         } catch {
-            InvystaService.log(.error, error.localizedDescription)
+            InvystaService.log(.error, "InvystaURL", error.localizedDescription)
         }
         
         return request
